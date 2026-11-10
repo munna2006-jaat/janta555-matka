@@ -14,7 +14,7 @@ export const CONFIG = {
     password: process.env.ADMIN_PASSWORD || 'Janta555@2026',
     role: 'MASTER'
   },
-  RENFLAIR_API_KEY: process.env.RENFLAIR_API_KEY || '888a969c6d992798abd6f4d4a0b9318c',
+  RENFLAIR_API_KEY: process.env.RENFLAIR_API_KEY || '',
   DEFAULT_PAYMENT_CONFIG: {
     upi_id: 'janta555official@upi',
     upi_name: 'JANTA555 ENTERPRISE',

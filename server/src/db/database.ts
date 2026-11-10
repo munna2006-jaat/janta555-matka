@@ -763,7 +763,7 @@ async function seedInitialData() {
     { key: 'notice_text', value: CONFIG.DEFAULT_PAYMENT_CONFIG.notice_text, description: 'Scrolling Notice Ticker Text' },
     { key: 'apk_download_count', value: '926', description: 'APK download counter shown on admin dashboard' },
     { key: 'sms_api_key', value: CONFIG.RENFLAIR_API_KEY, description: 'Renflair SMS Gateway API Key' },
-    { key: 'sms_otp_enabled', value: 'true', description: 'Enable SMS OTP Verification on Registration (true/false)' },
+    { key: 'sms_otp_enabled', value: 'false', description: 'Enable SMS OTP Verification on Registration (true/false)' },
     { key: 'meta_pixel_id', value: CONFIG.DEFAULT_PAYMENT_CONFIG.meta_pixel_id || '2066705063996932', description: 'Meta Facebook Pixel ID for Ads Tracking' }
   ];
 

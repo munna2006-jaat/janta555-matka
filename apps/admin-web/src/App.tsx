@@ -3502,8 +3502,8 @@ export const App: React.FC = () => {
                       <input
                         type="text"
                         className="input-field"
-                        placeholder="888a969c6d992798abd6f4d4a0b9318c"
-                        value={settingsData.sms_api_key ?? '888a969c6d992798abd6f4d4a0b9318c'}
+                        placeholder="Enter Renflair API Key"
+                        value={settingsData.sms_api_key ?? ''}
                         onChange={e => setSettingsData({ ...settingsData, sms_api_key: e.target.value })}
                       />
                     </div>
