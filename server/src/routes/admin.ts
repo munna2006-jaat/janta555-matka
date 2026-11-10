@@ -1003,6 +1003,22 @@ router.put('/markets/:id', authenticateAdmin, async (req: AdminRequest, res: Res
   return res.json({ success: true, message: 'Market updated successfully.' });
 });
 
+router.delete('/markets/:id', authenticateAdmin, async (req: AdminRequest, res: Response) => {
+  const marketId = req.params.id;
+  try {
+    const market = await db.queryOne('SELECT name FROM markets WHERE id = ?', [marketId]);
+    if (!market) {
+      return res.status(404).json({ success: false, message: 'Market not found.' });
+    }
+    await db.execute('DELETE FROM market_results WHERE market_id = ?', [marketId]);
+    await db.execute('DELETE FROM bets WHERE market_id = ?', [marketId]);
+    await db.execute('DELETE FROM markets WHERE id = ?', [marketId]);
+    return res.json({ success: true, message: `Market "${market.name}" deleted successfully.` });
+  } catch (err: any) {
+    return res.status(500).json({ success: false, message: 'Failed to delete market: ' + (err?.message || err) });
+  }
+});
+
 // SYSTEM SETTINGS
 router.get('/settings', authenticateAdmin, async (req: AdminRequest, res: Response) => {
   const rows = await db.queryAll('SELECT key, value, description FROM system_settings');

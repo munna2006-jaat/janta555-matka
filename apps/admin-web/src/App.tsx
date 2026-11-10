@@ -4555,6 +4555,43 @@ export const App: React.FC = () => {
                           >
                             {m.is_active ? 'Disable' : 'Enable'}
                           </button>
+
+                          {/* Delete Market Button */}
+                          <button
+                            type="button"
+                            onClick={() => {
+                              if (window.confirm(`Kya aap sach me "${m.name}" market ko delete (hataana) chahte hain?`)) {
+                                fetch(`/api/v1/admin/markets/${m.id}`, {
+                                  method: 'DELETE',
+                                  headers: { 'Authorization': `Bearer ${token}` }
+                                }).then(res => res.json()).then(data => {
+                                  if (data.success) {
+                                    alert(`Market "${m.name}" successfully hata diya gaya.`);
+                                    fetchMarkets(marketDateInput);
+                                  } else {
+                                    alert(data.message || 'Error deleting market');
+                                  }
+                                });
+                              }
+                            }}
+                            style={{
+                              background: '#EF4444',
+                              color: 'white',
+                              border: 'none',
+                              borderRadius: 6,
+                              padding: '6px 10px',
+                              fontSize: 11.5,
+                              fontWeight: 800,
+                              cursor: 'pointer',
+                              display: 'flex',
+                              alignItems: 'center',
+                              gap: 4
+                            }}
+                            title="Market Hatayein (Delete)"
+                          >
+                            <Trash2 size={13} />
+                            <span>Delete</span>
+                          </button>
                         </div>
                       </div>
                     );
