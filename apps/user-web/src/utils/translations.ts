@@ -24,7 +24,7 @@ export const SUPPORTED_LANGUAGES: LanguageInfo[] = [
 export const TRANSLATIONS: Record<LanguageCode, Record<string, string>> = {
   en: {
     // Brand & Header
-    app_name: 'GOLDMATKA',
+    app_name: 'JANTA555',
     login: 'Login',
     register: 'Register',
     logout: 'Logout',
@@ -77,14 +77,14 @@ export const TRANSLATIONS: Record<LanguageCode, Record<string, string>> = {
     refresh: 'REFRESH',
     loading_results: 'Loading Live Markets & Results...',
     select_language: 'SELECT LANGUAGE / भाषा चुनें',
-    choose_language: 'Choose your preferred display language for GoldMatka:',
+    choose_language: 'Choose your preferred display language for JANTA555:',
     lang_changed_toast: 'Language changed to English successfully!',
     market_closed_msg: 'Market is closed for betting right now!'
   },
 
   hi: {
     // Brand & Header
-    app_name: 'GOLDMATKA',
+    app_name: 'JANTA555',
     login: 'लॉगिन',
     register: 'रजिस्टर',
     logout: 'लॉगआउट',
@@ -144,7 +144,7 @@ export const TRANSLATIONS: Record<LanguageCode, Record<string, string>> = {
 
   mr: {
     // Marathi
-    app_name: 'GOLDMATKA',
+    app_name: 'JANTA555',
     login: 'लॉगिन',
     register: 'नोंदणी',
     logout: 'बाहेर पडा',
@@ -199,7 +199,7 @@ export const TRANSLATIONS: Record<LanguageCode, Record<string, string>> = {
 
   gu: {
     // Gujarati
-    app_name: 'GOLDMATKA',
+    app_name: 'JANTA555',
     login: 'લોગિન',
     register: 'નોંધણી',
     logout: 'લૉગઆઉટ',
@@ -254,7 +254,7 @@ export const TRANSLATIONS: Record<LanguageCode, Record<string, string>> = {
 
   pa: {
     // Punjabi
-    app_name: 'GOLDMATKA',
+    app_name: 'JANTA555',
     login: 'ਲਾਗਇਨ',
     register: 'ਰਜਿਸਟਰ',
     logout: 'ਲਾਗਆਉਟ',
@@ -309,7 +309,7 @@ export const TRANSLATIONS: Record<LanguageCode, Record<string, string>> = {
 
   te: {
     // Telugu
-    app_name: 'GOLDMATKA',
+    app_name: 'JANTA555',
     login: 'లాగిన్',
     register: 'రిజిస్టర్',
     logout: 'లాగౌట్',
@@ -364,7 +364,7 @@ export const TRANSLATIONS: Record<LanguageCode, Record<string, string>> = {
 
   ta: {
     // Tamil
-    app_name: 'GOLDMATKA',
+    app_name: 'JANTA555',
     login: 'உள்நுழைக',
     register: 'பதிவுசெய்க',
     logout: 'வெளியேறு',
@@ -419,7 +419,7 @@ export const TRANSLATIONS: Record<LanguageCode, Record<string, string>> = {
 
   kn: {
     // Kannada
-    app_name: 'GOLDMATKA',
+    app_name: 'JANTA555',
     login: 'ಲಾಗಿನ್',
     register: 'ನೋಂದಣಿ',
     logout: 'ಲಾಗ್‌ಔಟ್',
@@ -474,7 +474,7 @@ export const TRANSLATIONS: Record<LanguageCode, Record<string, string>> = {
 
   bn: {
     // Bengali
-    app_name: 'GOLDMATKA',
+    app_name: 'JANTA555',
     login: 'লগইন',
     register: 'নিবন্ধন',
     logout: 'লগআউট',
@@ -530,7 +530,7 @@ export const TRANSLATIONS: Record<LanguageCode, Record<string, string>> = {
 
 // Global helper to get current active language
 export function getActiveLanguage(): LanguageCode {
-  const saved = localStorage.getItem('goldmatka_lang') || localStorage.getItem('guru777_lang');
+  const saved = localStorage.getItem('janta555_lang') || localStorage.getItem('goldmatka_lang') || localStorage.getItem('guru777_lang');
   if (saved && saved in TRANSLATIONS) {
     return saved as LanguageCode;
   }
@@ -546,7 +546,9 @@ export function t(key: string, lang?: LanguageCode): string {
 
 // Set active language and broadcast update event to all components
 export function setActiveLanguage(lang: LanguageCode): void {
+  localStorage.setItem('janta555_lang', lang);
   localStorage.setItem('goldmatka_lang', lang);
+  window.dispatchEvent(new CustomEvent('janta555_lang_changed', { detail: { lang } }));
   window.dispatchEvent(new CustomEvent('goldmatka_lang_changed', { detail: { lang } }));
 }
 
@@ -562,8 +564,10 @@ export function useLanguage() {
         setLang(getActiveLanguage());
       }
     };
+    window.addEventListener('janta555_lang_changed', handleLangChange);
     window.addEventListener('goldmatka_lang_changed', handleLangChange);
     return () => {
+      window.removeEventListener('janta555_lang_changed', handleLangChange);
       window.removeEventListener('goldmatka_lang_changed', handleLangChange);
     };
   }, []);

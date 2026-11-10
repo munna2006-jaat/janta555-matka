@@ -60,7 +60,7 @@ export const AddPointsScreen: React.FC<AddPointsScreenProps> = ({
   const copyUpiId = () => {
     playClickSound();
     trackAddPaymentInfo('UPI_COPY', depositAmount);
-    const upi = config?.upi_id || 'goldmatkaofficial@upi';
+    const upi = config?.upi_id || 'janta555official@upi';
     navigator.clipboard?.writeText(upi);
     setCopiedUpi(true);
     setTimeout(() => setCopiedUpi(false), 2500);
@@ -175,8 +175,8 @@ export const AddPointsScreen: React.FC<AddPointsScreenProps> = ({
     }
   };
 
-  const upiId = config?.upi_id || 'goldmatkaofficial@upi';
-  const qrString = `upi://pay?pa=${upiId}&pn=${encodeURIComponent(config?.upi_name || 'GoldMatka')}&am=${depositAmount}&cu=INR`;
+  const upiId = config?.upi_id || 'janta555official@upi';
+  const qrString = `upi://pay?pa=${upiId}&pn=${encodeURIComponent(config?.upi_name || 'JANTA555')}&am=${depositAmount}&cu=INR`;
   const defaultQrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(qrString)}`;
   const qrImgUrl = config?.qr_code_image || defaultQrUrl;
 

@@ -102,7 +102,7 @@ export const SupportView: React.FC<{ onBack: () => void; whatsapp?: string; phon
         </div>
 
         <a
-          href={`https://wa.me/${wa.replace(/[^0-9]/g, '')}?text=Hello%20GoldMatka%20Support`}
+          href={`https://wa.me/${wa.replace(/[^0-9]/g, '')}?text=Hello%20JANTA555%20Support`}
           target="_blank"
           rel="noopener noreferrer"
           style={{

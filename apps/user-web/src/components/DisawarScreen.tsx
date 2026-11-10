@@ -169,11 +169,12 @@ export const DisawarScreen: React.FC<DisawarScreenProps> = ({
 
         <div className="disawar-logo-text">
           <span style={{
-            background: 'linear-gradient(135deg, #FFFBEB 0%, #FDE047 35%, #F59E0B 75%, #B45309 100%)',
+            background: 'linear-gradient(135deg, #0284C7 0%, #38BDF8 50%, #2563EB 100%)',
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent',
-            letterSpacing: '0.04em'
-          }}>GOLDEN MATKA</span>
+            letterSpacing: '0.04em',
+            fontWeight: 900
+          }}>JANTA555</span>
         </div>
 
         <div className="disawar-header-right">

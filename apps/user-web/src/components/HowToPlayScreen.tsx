@@ -294,7 +294,7 @@ export const HowToPlayScreen: React.FC<HowToPlayScreenProps> = ({ onBack }) => {
                   },
                   {
                     title: '2. Instant Auto-Settlement',
-                    desc: 'When an admin declares the result or an automated draw occurs, all winning tickets are settled immediately and funds are credited directly to your GoldMatka wallet balance.'
+                    desc: 'When an admin declares the result or an automated draw occurs, all winning tickets are settled immediately and funds are credited directly to your JANTA555 wallet balance.'
                   },
                   {
                     title: '3. Minimum & Maximum Bet Limits',

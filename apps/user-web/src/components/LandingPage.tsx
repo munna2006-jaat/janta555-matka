@@ -24,8 +24,8 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onPlayOnline, whatsapp
     setDownloadStarted(true);
     // Trigger download
     const link = document.createElement('a');
-    link.href = '/goldmatka.apk';
-    link.setAttribute('download', 'GoldMatka.apk');
+    link.href = '/janta555.apk';
+    link.setAttribute('download', 'Janta555.apk');
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -68,7 +68,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onPlayOnline, whatsapp
 
   const faqs = [
     {
-      q: 'GoldMatka Android App kaise download aur install karein?',
+      q: 'JANTA555 Android App kaise download aur install karein?',
       a: 'Upar diye gaye "Download Android App (APK)" button par click karein. Download hone ke baad file par tap karein aur "Install" select karein. Agar phone "Install from unknown sources" maangta hai to use allow karein.'
     },
     {
@@ -77,11 +77,11 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onPlayOnline, whatsapp
     },
     {
       q: 'Withdrawal aane me kitna time lagta hai?',
-      a: 'GoldMatka par auto-approved payouts hain. Withdrawal request submit karte hi 10 se 15 minute ke andar paisa aapke account me credit ho jata hai.'
+      a: 'JANTA555 par auto-approved payouts hain. Withdrawal request submit karte hi 10 se 15 minute ke andar paisa aapke account me credit ho jata hai.'
     },
     {
-      q: 'Kya GoldMatka me Disawar aur Satta King bhi shamil hai?',
-      a: 'Haan! GoldMatka me sabhi regular Matka (Kalyan, Milan, Rajdhani, Madhur) ke saath-saath Gali, Desawar, Faridabad, Gaziabad, Delhi Bazar aur Shree Ganesh ke live fastest results aur betting shamil hain.'
+      q: 'Kya JANTA555 me Disawar aur Satta King bhi shamil hai?',
+      a: 'Haan! JANTA555 me sabhi regular Matka (Kalyan, Milan, Rajdhani, Madhur) ke saath-saath Gali, Desawar, Faridabad, Gaziabad, Delhi Bazar aur Shree Ganesh ke live fastest results aur betting shamil hain.'
     }
   ];
 
@@ -122,14 +122,14 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onPlayOnline, whatsapp
           </div>
           <div>
             <div style={{
-              fontSize: 20,
+              fontSize: 22,
               fontWeight: 900,
               letterSpacing: 1,
-              background: 'linear-gradient(90deg, #FFF5A6 0%, #FFD700 50%, #D4AF37 100%)',
+              background: 'linear-gradient(90deg, #0284C7 0%, #38BDF8 50%, #2563EB 100%)',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent'
             }}>
-              GOLDMATKA
+              JANTA555
             </div>
             <div style={{ fontSize: 9.5, color: '#94A3B8', letterSpacing: 1.2, fontWeight: 700 }}>
               INDIA&apos;S #1 TRUSTED APP
@@ -253,7 +253,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onPlayOnline, whatsapp
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, marginBottom: 16 }}>
             <Smartphone size={24} color="#34D399" />
             <span style={{ fontSize: 16, fontWeight: 900, color: '#F1F5F9' }}>
-              GoldMatka Mobile App (Android)
+              JANTA555 Mobile App (Android)
             </span>
           </div>
 
@@ -361,7 +361,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onPlayOnline, whatsapp
               onClick={() => {
                 playClickSound();
                 trackContact('whatsapp');
-                window.open(`https://wa.me/${cleanWaNumber}?text=${encodeURIComponent('Hello Admin, I want to play on GoldMatka')}`, '_blank');
+                window.open(`https://wa.me/${cleanWaNumber}?text=${encodeURIComponent('Hello Admin, I want to play on JANTA555')}`, '_blank');
               }}
               style={{
                 flex: 1,
@@ -424,7 +424,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onPlayOnline, whatsapp
             UNBEATABLE MARKET PAYOUTS
           </div>
           <h2 style={{ fontSize: 26, fontWeight: 900 }}>
-            GoldMatka Game Rates (गेम रेट्स)
+            JANTA555 Game Rates (गेम रेट्स)
           </h2>
           <p style={{ fontSize: 13, color: '#94A3B8' }}>
             We provide the most competitive game rates with zero hidden commission.
@@ -484,7 +484,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onPlayOnline, whatsapp
             WHY 50,000+ PLAYERS TRUST US
           </div>
           <h2 style={{ fontSize: 26, fontWeight: 900 }}>
-            GoldMatka Exclusive Benefits
+            JANTA555 Exclusive Benefits
           </h2>
         </div>
 
@@ -565,7 +565,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onPlayOnline, whatsapp
             <div>
               <div style={{ fontSize: 14, fontWeight: 800, color: '#F8FAFC' }}>Click &quot;Download Android App (APK)&quot;</div>
               <div style={{ fontSize: 12, color: '#94A3B8', marginTop: 2 }}>
-                Click the download button above to save the lightweight <code>GoldMatka.apk</code> file to your device.
+                Click the download button above to save the lightweight <code>Janta555.apk</code> file to your device.
               </div>
             </div>
           </div>
@@ -611,7 +611,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onPlayOnline, whatsapp
             <div>
               <div style={{ fontSize: 14, fontWeight: 800, color: '#F8FAFC' }}>Open App &amp; Start Playing</div>
               <div style={{ fontSize: 12, color: '#94A3B8', marginTop: 2 }}>
-                Open GoldMatka, login with your mobile number, and enjoy seamless betting with 3D startup animations!
+                Open JANTA555, login with your mobile number, and enjoy seamless betting with fastest payouts!
               </div>
             </div>
           </div>
@@ -717,7 +717,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onPlayOnline, whatsapp
         onClick={() => {
           playClickSound();
           trackContact('whatsapp');
-          window.open(`https://wa.me/${cleanWaNumber}?text=${encodeURIComponent('Hello Admin, I need help with GoldMatka app')}`, '_blank');
+          window.open(`https://wa.me/${cleanWaNumber}?text=${encodeURIComponent('Hello Admin, I need help with JANTA555 app')}`, '_blank');
         }}
         style={{
           position: 'fixed',
@@ -768,11 +768,11 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onPlayOnline, whatsapp
         </div>
 
         <p style={{ maxWidth: 600, margin: '0 auto 12px', lineHeight: 1.5 }}>
-          GoldMatka is a fantasy gaming and entertainment platform. Please play responsibly. We encourage safe and self-controlled gaming habits.
+          JANTA555 is a fantasy gaming and entertainment platform. Please play responsibly. We encourage safe and self-controlled gaming habits.
         </p>
 
         <div style={{ color: '#94A3B8', fontWeight: 600 }}>
-          © 2026 GoldMatka. All Rights Reserved • Fastest Results &amp; Direct Payouts.
+          © 2026 JANTA555. All Rights Reserved • Fastest Results &amp; Direct Payouts.
         </div>
       </footer>
     </div>

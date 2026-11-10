@@ -15,7 +15,7 @@ import { calculateAnkFromPanna } from './utils/matkaUtils';
 export const App: React.FC = () => {
   // Auth state
   const [token, setToken] = useState<string | null>(
-    localStorage.getItem('goldmatka_admin_token') || localStorage.getItem('guru777_admin_token')
+    localStorage.getItem('janta555_admin_token') || localStorage.getItem('goldmatka_admin_token') || localStorage.getItem('guru777_admin_token')
   );
   const [adminUser, setAdminUser] = useState<any>(null);
 
@@ -462,6 +462,7 @@ export const App: React.FC = () => {
       const data = await res.json();
       if (!data.success) throw new Error(data.message || 'Login failed');
 
+      localStorage.setItem('janta555_admin_token', data.token);
       localStorage.setItem('goldmatka_admin_token', data.token);
       localStorage.removeItem('guru777_admin_token');
       setToken(data.token);
@@ -474,6 +475,7 @@ export const App: React.FC = () => {
   };
 
   const handleLogout = () => {
+    localStorage.removeItem('janta555_admin_token');
     localStorage.removeItem('goldmatka_admin_token');
     localStorage.removeItem('guru777_admin_token');
     setToken(null);
@@ -551,7 +553,7 @@ export const App: React.FC = () => {
 
   // Expose global navigator for WebView & hardware back
   useEffect(() => {
-    (window as any).__goldmatka_navigate_back = () => {
+    const navBack = () => {
       if (selectedReceiptRef.current) {
         setSelectedReceipt(null);
         return true;
@@ -574,7 +576,10 @@ export const App: React.FC = () => {
       }
       return false;
     };
+    (window as any).__janta555_navigate_back = navBack;
+    (window as any).__goldmatka_navigate_back = navBack;
     return () => {
+      delete (window as any).__janta555_navigate_back;
       delete (window as any).__goldmatka_navigate_back;
     };
   }, []);
@@ -1176,7 +1181,7 @@ export const App: React.FC = () => {
           </div>
 
           <h2 style={{ fontSize: 20, fontWeight: 900, color: '#0F172A', marginBottom: 4 }}>
-            GoldMatka Master Admin
+            JANTA555 Master Admin
           </h2>
           <p style={{ fontSize: 12, color: '#64748B', marginBottom: 20 }}>
             Enter Master Credentials to Access Control Panel
@@ -3310,7 +3315,7 @@ export const App: React.FC = () => {
                     <input
                       type="text"
                       className="input-field"
-                      placeholder="e.g. goldmatkaofficial@upi"
+                      placeholder="e.g. janta555official@upi"
                       value={settingsData.upi_id || ''}
                       onChange={e => setSettingsData({ ...settingsData, upi_id: e.target.value })}
                     />
@@ -3320,7 +3325,7 @@ export const App: React.FC = () => {
                     <input
                       type="text"
                       className="input-field"
-                      placeholder="e.g. GOLDMATKA ENTERPRISE"
+                      placeholder="e.g. JANTA555 ENTERPRISE"
                       value={settingsData.upi_name || ''}
                       onChange={e => setSettingsData({ ...settingsData, upi_name: e.target.value })}
                     />
@@ -3367,7 +3372,7 @@ export const App: React.FC = () => {
                         boxShadow: '0 2px 6px rgba(0,0,0,0.06)'
                       }}>
                         <img
-                          src={settingsData.qr_code_image || `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(`upi://pay?pa=${settingsData.upi_id || 'goldmatkaofficial@upi'}&pn=${encodeURIComponent(settingsData.upi_name || 'GoldMatka')}&cu=INR`)}`}
+                          src={settingsData.qr_code_image || `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(`upi://pay?pa=${settingsData.upi_id || 'janta555official@upi'}&pn=${encodeURIComponent(settingsData.upi_name || 'JANTA555')}&cu=INR`)}`}
                           alt="QR Code Preview"
                           style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain', display: 'block' }}
                         />
@@ -3685,7 +3690,7 @@ export const App: React.FC = () => {
                       </span>
                     </div>
                     <p style={{ margin: 0, fontSize: 12, opacity: 0.92, lineHeight: 1.5 }}>
-                      GoldMatka website aur landing page me Meta Pixel automatically active hai. Jab aap Facebook / Instagram par ad chalate hain, tab visitors ka registration, deposits aur WhatsApp leads yahan Meta Events Manager me capture hoti hain.
+                      JANTA555 website aur landing page me Meta Pixel automatically active hai. Jab aap Facebook / Instagram par ad chalate hain, tab visitors ka registration, deposits aur WhatsApp leads yahan Meta Events Manager me capture hoti hain.
                     </p>
                   </div>
 
@@ -3761,7 +3766,7 @@ export const App: React.FC = () => {
                     marginBottom: 16
                   }}>
                     <div style={{ fontWeight: 700, fontSize: 13, color: '#0F172A', marginBottom: 10 }}>
-                      ⚡ Real-Time Tracked Events on GoldMatka
+                      ⚡ Real-Time Tracked Events on JANTA555
                     </div>
 
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 8 }}>
@@ -3846,7 +3851,7 @@ export const App: React.FC = () => {
                         Ad Set me Conversion Location <em>"Website"</em> chunein aur Pixel Dataset <code>{settingsData.meta_pixel_id || '2066705063996932'}</code> select karein.
                       </li>
                       <li>
-                        Conversion Event me <strong>"CompleteRegistration"</strong> (User Register) ya <strong>"Lead"</strong> (App Download / WhatsApp) select karein. Destination URL me <code>https://goldmatka.co/</code> ya <code>https://download.goldmatka.co/</code> daalein.
+                        Conversion Event me <strong>"CompleteRegistration"</strong> (User Register) ya <strong>"Lead"</strong> (App Download / WhatsApp) select karein. Destination URL me <code>https://janta555.com/</code> ya <code>https://janta555.onvoroa.com/</code> daalein.
                       </li>
                     </ol>
                   </div>

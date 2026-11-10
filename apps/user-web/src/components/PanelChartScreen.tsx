@@ -90,7 +90,7 @@ export const PanelChartScreen: React.FC<PanelChartScreenProps> = ({
   }, [selectedMarketId]);
 
   const selectedMarket = markets.find(m => m.id === selectedMarketId);
-  const marketName = selectedMarket?.name || 'GOLDEN';
+  const marketName = selectedMarket?.name || 'KALYAN';
 
   // ========================================================
   // VIEW 1: "Select Market Chart" List (Reference Video Frames 000 - 003)

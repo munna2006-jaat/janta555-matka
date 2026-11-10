@@ -9,9 +9,9 @@ export const LatestAppScreen: React.FC<LatestAppScreenProps> = ({ onBack }) => {
   const handleDownload = () => {
     // Direct APK download link or simulated APK
     const link = document.createElement('a');
-    link.href = '#';
-    link.download = 'GoldMatka_v2.5.0.apk';
-    alert('Starting GoldMatka APK Download (v2.5.0)...\nThank you for choosing GoldMatka!');
+    link.href = '/janta555.apk';
+    link.download = 'Janta555.apk';
+    alert('Starting JANTA555 APK Download...\nThank you for choosing JANTA555!');
   };
 
   return (
@@ -46,7 +46,7 @@ export const LatestAppScreen: React.FC<LatestAppScreenProps> = ({ onBack }) => {
         >
           <ArrowLeft size={18} strokeWidth={2.5} />
         </button>
-        <span style={{ fontSize: 17, fontWeight: 900 }}>DOWNLOAD GOLDMATKA APP</span>
+        <span style={{ fontSize: 17, fontWeight: 900 }}>DOWNLOAD JANTA555 APP</span>
       </div>
 
       <div style={{ padding: '16px 14px', display: 'flex', flexDirection: 'column', gap: 14 }}>
@@ -74,7 +74,7 @@ export const LatestAppScreen: React.FC<LatestAppScreenProps> = ({ onBack }) => {
           </div>
 
           <h2 style={{ fontSize: 22, fontWeight: 900, marginBottom: 4, letterSpacing: 0.5 }}>
-            GOLDMATKA OFFICIAL APP
+            JANTA555 OFFICIAL APP
           </h2>
           <div style={{ fontSize: 13, color: '#38BDF8', fontWeight: 800, marginBottom: 12 }}>
             Version 2.5.0 (Latest Stable) • 8.5 MB
@@ -128,7 +128,7 @@ export const LatestAppScreen: React.FC<LatestAppScreenProps> = ({ onBack }) => {
           boxShadow: '0 2px 8px rgba(0,0,0,0.04)'
         }}>
           <h3 style={{ fontSize: 15, fontWeight: 900, color: '#0F172A', marginBottom: 12 }}>
-            ⚡ Why Download GoldMatka App?
+            ⚡ Why Download JANTA555 App?
           </h3>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>

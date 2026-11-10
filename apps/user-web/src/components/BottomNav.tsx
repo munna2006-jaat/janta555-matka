@@ -17,8 +17,12 @@ export const BottomNav: React.FC<BottomNavProps> = ({ currentTab, onTabChange })
     const handleLangChange = (e: any) => {
       if (e.detail?.lang) setLang(e.detail.lang);
     };
+    window.addEventListener('janta555_lang_changed', handleLangChange);
     window.addEventListener('goldmatka_lang_changed', handleLangChange);
-    return () => window.removeEventListener('goldmatka_lang_changed', handleLangChange);
+    return () => {
+      window.removeEventListener('janta555_lang_changed', handleLangChange);
+      window.removeEventListener('goldmatka_lang_changed', handleLangChange);
+    };
   }, []);
 
   const handleSelect = (tab: NavTab) => {

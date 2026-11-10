@@ -71,7 +71,7 @@ router.post('/register', async (req, res) => {
 
   return res.json({
     success: true,
-    message: 'Registration successful! Welcome to GoldMatka.',
+    message: 'Registration successful! Welcome to JANTA555.',
     token,
     user: {
       id: userId,

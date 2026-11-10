@@ -1,4 +1,4 @@
-// Meta (Facebook) Pixel Integration Utility for GoldMatka
+// Meta (Facebook) Pixel Integration Utility for JANTA555
 declare global {
   interface Window {
     fbq?: any;
@@ -126,11 +126,11 @@ export const trackContact = (channel: string = 'whatsapp') => {
 
 export const trackApkDownload = () => {
   trackMetaEvent('Lead', {
-    content_name: 'GoldMatka Official APK Download',
+    content_name: 'JANTA555 Official APK Download',
     content_category: 'Android App Download'
   });
   trackCustomEvent('ApkDownloadClick', {
-    app: 'GoldMatka',
+    app: 'JANTA555',
     platform: 'Android'
   });
 };

@@ -111,8 +111,8 @@ export const SidebarDrawer: React.FC<SidebarDrawerProps> = ({
           <li className="drawer-menu-item" onClick={() => handleItemClick(() => {
             if (navigator.share) {
               navigator.share({
-                title: 'GoldMatka',
-                text: 'Play Online Matka on GoldMatka with best rates and instant withdrawals!',
+                title: 'JANTA555',
+                text: 'Play Online Matka on JANTA555 with best rates and instant withdrawals!',
                 url: window.location.origin
               }).catch(() => {});
             } else {

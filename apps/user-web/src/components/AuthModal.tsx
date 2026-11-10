@@ -159,7 +159,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onAuthSuc
               <ArrowLeft size={18} strokeWidth={2.5} />
             </button>
             <div className="modal-title" style={{ fontWeight: 900, letterSpacing: 0.5, fontSize: 16 }}>
-              {mode === 'login' ? 'SIGN IN TO GOLDMATKA' : 'REGISTER TO GOLDMATKA'}
+              {mode === 'login' ? 'SIGN IN TO JANTA555' : 'REGISTER TO JANTA555'}
             </div>
           </div>
           <button onClick={onClose} style={{ background: 'none', border: 'none', color: 'white', cursor: 'pointer' }} aria-label="Close">

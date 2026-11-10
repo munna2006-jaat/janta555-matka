@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { User, Phone, Key, UserPlus, CheckCircle2, Eye, EyeOff, AlertCircle, ArrowRight, ShieldCheck } from 'lucide-react';
-import { GoldenLogo } from './GoldenLogo';
+import { JantaLogo } from './JantaLogo';
 import { trackRegistration } from '../utils/metaPixel';
 
 interface RegisterScreenProps {
@@ -132,8 +132,23 @@ export const RegisterScreen: React.FC<RegisterScreenProps> = ({ onSuccess, onExp
 
   return (
     <div className="auth-landing-wrapper">
-      {/* Brand Logo - GoldenMatka Luxury GM Crest */}
-      <GoldenLogo variant="auth" />
+      {/* Brand Logo - JANTA555 */}
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: 22 }}>
+        <JantaLogo size="lg" />
+        <span style={{ 
+          fontSize: 11, 
+          fontWeight: 800, 
+          color: '#0284C7', 
+          letterSpacing: '2px', 
+          textTransform: 'uppercase', 
+          marginTop: 6,
+          background: '#E0F2FE',
+          padding: '4px 12px',
+          borderRadius: 20
+        }}>
+          OFFICIAL VIP GAMING
+        </span>
+      </div>
 
       {/* Main Registration / Sign In Card */}
       <div className="auth-register-card">
@@ -141,7 +156,7 @@ export const RegisterScreen: React.FC<RegisterScreenProps> = ({ onSuccess, onExp
           {mode === 'register' ? 'REGISTER' : 'SIGN IN'}
         </h1>
         <p className="auth-card-subtitle">
-          {mode === 'register' ? 'Join GOLDEN MATKA' : 'Welcome to GOLDEN MATKA'}
+          {mode === 'register' ? 'Join JANTA555' : 'Welcome to JANTA555'}
         </p>
 
         {error && (
@@ -197,7 +212,7 @@ export const RegisterScreen: React.FC<RegisterScreenProps> = ({ onSuccess, onExp
                 onClick={handleSendOtp}
                 disabled={sendingOtp || countdown > 0 || phone.replace(/[^0-9]/g, '').length !== 10}
                 style={{
-                  background: countdown > 0 ? '#E2E8F0' : '#FF0055',
+                  background: countdown > 0 ? '#E2E8F0' : '#0284C7',
                   color: countdown > 0 ? '#64748B' : 'white',
                   border: 'none',
                   borderRadius: 8,
@@ -216,8 +231,8 @@ export const RegisterScreen: React.FC<RegisterScreenProps> = ({ onSuccess, onExp
 
           {/* OTP Input Field */}
           {mode === 'register' && otpSent && (
-            <div className="auth-input-group border-pink" style={{ background: '#FFF1F2' }}>
-              <ShieldCheck size={20} className="auth-input-icon" color="#FF0055" />
+            <div className="auth-input-group border-blue" style={{ background: '#F0F9FF', borderColor: '#38BDF8' }}>
+              <ShieldCheck size={20} className="auth-input-icon" color="#0284C7" />
               <input
                 type="tel"
                 maxLength={4}
@@ -229,7 +244,7 @@ export const RegisterScreen: React.FC<RegisterScreenProps> = ({ onSuccess, onExp
                 style={{ letterSpacing: 4, fontWeight: 800, fontSize: 16 }}
                 autoFocus
               />
-              <span style={{ fontSize: 11, color: '#FF0055', fontWeight: 800, paddingRight: 10 }}>
+              <span style={{ fontSize: 11, color: '#0284C7', fontWeight: 800, paddingRight: 10 }}>
                 VIA SMS
               </span>
             </div>
@@ -277,6 +292,13 @@ export const RegisterScreen: React.FC<RegisterScreenProps> = ({ onSuccess, onExp
             type="submit"
             className="auth-submit-btn"
             disabled={loading || sendingOtp}
+            style={{
+              background: 'linear-gradient(135deg, #0284C7 0%, #2563EB 100%)',
+              color: '#FFFFFF',
+              boxShadow: '0 8px 24px rgba(2, 132, 199, 0.35)',
+              border: 'none',
+              fontWeight: 800
+            }}
           >
             {loading
               ? 'PLEASE WAIT...'

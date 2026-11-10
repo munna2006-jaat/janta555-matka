@@ -15,8 +15,8 @@ router.get('/config', async (req, res) => {
   return res.json({
     success: true,
     config: {
-      upi_id: settings.upi_id || 'goldmatkaofficial@upi',
-      upi_name: settings.upi_name || 'GOLDMATKA ENTERPRISE',
+      upi_id: settings.upi_id || 'janta555official@upi',
+      upi_name: settings.upi_name || 'JANTA555 ENTERPRISE',
       qr_code_image: settings.qr_code_image || '',
       min_deposit: parseInt(settings.min_deposit || '100', 10),
       max_deposit: parseInt(settings.max_deposit || '100000', 10),

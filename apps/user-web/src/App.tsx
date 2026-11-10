@@ -25,7 +25,6 @@ import { RegisterScreen } from './components/RegisterScreen';
 import { MarketClosedToast } from './components/MarketClosedToast';
 import { DisawarScreen } from './components/DisawarScreen';
 import { DisawarBettingScreen } from './components/DisawarBettingScreen';
-import { GoldMatkaSplashScreen } from './components/GoldMatkaSplashScreen';
 import { LandingPage } from './components/LandingPage';
 import { ArrowUp, IndianRupee, Play } from 'lucide-react';
 import { useLanguage } from './utils/translations';
@@ -41,18 +40,10 @@ import {
 export const App: React.FC = () => {
   const { t } = useLanguage();
 
-  // Animated Startup Splash Screen
-  const [showSplash, setShowSplash] = useState<boolean>(() => {
-    return !sessionStorage.getItem('goldmatka_splash_seen');
-  });
-
-  const handleSplashComplete = () => {
-    sessionStorage.setItem('goldmatka_splash_seen', 'true');
-    setShowSplash(false);
-  };
-
   // Auth state
-  const [token, setToken] = useState<string | null>(localStorage.getItem('goldmatka_token') || localStorage.getItem('guru777_token'));
+  const [token, setToken] = useState<string | null>(
+    localStorage.getItem('janta555_token') || localStorage.getItem('goldmatka_token') || localStorage.getItem('guru777_token')
+  );
   const [user, setUser] = useState<{ id: number; name: string; phone: string; wallet_balance: number; created_at?: string } | null>(null);
   const [guestBrowsing, setGuestBrowsing] = useState<boolean>(false);
 
@@ -241,8 +232,10 @@ export const App: React.FC = () => {
 
   // Expose global navigator for Android WebView bridge
   useEffect(() => {
+    (window as any).__janta555_navigate_back = navigateBack;
     (window as any).__goldmatka_navigate_back = navigateBack;
     return () => {
+      delete (window as any).__janta555_navigate_back;
       delete (window as any).__goldmatka_navigate_back;
     };
   }, [navigateBack]);
@@ -264,7 +257,7 @@ export const App: React.FC = () => {
           return; // Double tap within 2s -> allow browser/system to exit
         } else {
           lastBackPressRef.current = now;
-          showBackExitToast("Press BACK again to exit GoldMatka");
+          showBackExitToast("Press BACK again to exit JANTA555");
           window.history.pushState({ root: true, view: 'home', tab: 'home' }, '', window.location.pathname);
         }
       }
@@ -285,6 +278,7 @@ export const App: React.FC = () => {
           if (data.success && data.user) {
             setUser(data.user);
           } else {
+            localStorage.removeItem('janta555_token');
             localStorage.removeItem('goldmatka_token');
             localStorage.removeItem('guru777_token');
             setToken(null);
@@ -292,6 +286,7 @@ export const App: React.FC = () => {
           }
         })
         .catch(() => {
+          localStorage.removeItem('janta555_token');
           localStorage.removeItem('goldmatka_token');
           localStorage.removeItem('guru777_token');
           setToken(null);
@@ -398,6 +393,7 @@ export const App: React.FC = () => {
 
   const handleAuthSuccess = (newToken: string, newUser: any) => {
     playSuccessSound();
+    localStorage.setItem('janta555_token', newToken);
     localStorage.setItem('goldmatka_token', newToken);
     setToken(newToken);
     setUser(newUser);
@@ -405,6 +401,7 @@ export const App: React.FC = () => {
 
   const handleLogout = () => {
     playClickSound();
+    localStorage.removeItem('janta555_token');
     localStorage.removeItem('goldmatka_token');
     localStorage.removeItem('guru777_token');
     setToken(null);
@@ -490,7 +487,6 @@ export const App: React.FC = () => {
   if (!token && !guestBrowsing) {
     return (
       <div className="app-container">
-        {showSplash && <GoldMatkaSplashScreen onComplete={handleSplashComplete} />}
         <RegisterScreen
           onSuccess={(newToken, newUser) => {
             handleAuthSuccess(newToken, newUser);
@@ -506,9 +502,6 @@ export const App: React.FC = () => {
 
   return (
     <div className="app-container">
-      {/* Animated Cool Startup Splash Screen */}
-      {showSplash && !isLandingView && <GoldMatkaSplashScreen onComplete={handleSplashComplete} />}
-
       {/* Top Header (Hidden on Disawar and Landing screens which have their own dedicated headers) */}
       {currentView !== 'disawar' && currentView !== 'disawar-betting' && !isLandingView && (
         <>
@@ -730,7 +723,7 @@ export const App: React.FC = () => {
                 playClickSound();
                 trackContact('whatsapp');
                 const wa = (settings?.whatsapp_number || '+919876543210').replace(/[^0-9]/g, '');
-                window.open(`https://wa.me/${wa}?text=${encodeURIComponent('Hello Admin, I want to play on GoldMatka')}`, '_blank');
+                window.open(`https://wa.me/${wa}?text=${encodeURIComponent('Hello Admin, I want to play on JANTA555')}`, '_blank');
               }}
             >
               <div className="action-icon-circle">

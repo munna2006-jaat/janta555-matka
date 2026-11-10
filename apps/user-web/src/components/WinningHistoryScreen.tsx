@@ -214,7 +214,7 @@ export const WinningHistoryScreen: React.FC<WinningHistoryScreenProps> = ({
               <div style={{ textAlign: 'center', padding: 30, background: 'white', borderRadius: 12 }}>
                 <p style={{ color: '#64748B', marginBottom: 14 }}>Please login to view your winning bets.</p>
                 <button type="button" className="btn-primary" onClick={onRequireLogin}>
-                  LOGIN TO GOLDMATKA
+                  LOGIN TO JANTA555
                 </button>
               </div>
             ) : loading ? (

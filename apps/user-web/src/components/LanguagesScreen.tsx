@@ -17,8 +17,12 @@ export const LanguagesScreen: React.FC<LanguagesScreenProps> = ({ onBack }) => {
         setSelectedLang(e.detail.lang);
       }
     };
+    window.addEventListener('janta555_lang_changed', handleLangChange);
     window.addEventListener('goldmatka_lang_changed', handleLangChange);
-    return () => window.removeEventListener('goldmatka_lang_changed', handleLangChange);
+    return () => {
+      window.removeEventListener('janta555_lang_changed', handleLangChange);
+      window.removeEventListener('goldmatka_lang_changed', handleLangChange);
+    };
   }, []);
 
   const handleSelect = (lang: LanguageCode) => {
