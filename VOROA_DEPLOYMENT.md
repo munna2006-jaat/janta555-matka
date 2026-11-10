@@ -1,13 +1,11 @@
-# 🌐 Voroa Cloud Deployment Guide (Guru777 Matka)
+# 🌐 Voroa Cloud Deployment Guide (JANTA555 Matka)
 
-Aapka pura code aapke GitHub account par **private repository** me push ho chuka hai:
-🔗 **GitHub Repo:** [https://github.com/munna2006-jaat/guru777-matka](https://github.com/munna2006-jaat/guru777-matka)
+Aapka pura code aapke GitHub account par repository me push ho chuka hai:
+🔗 **GitHub Repo:** [https://github.com/munna2006-jaat/janta555-matka](https://github.com/munna2006-jaat/janta555-matka)
 
 ---
 
 ## 🚀 Voroa (`app.getvoroa.com`) par Live Deploy karne ka Step-by-Step Process
-
-Aapne pehle se hi Voroa par **`matka` (PostgreSQL)** database bana liya hai (Mumbai Region). Ab bas **1 Web Service** banani hai aur dono ko connect karna hai!
 
 ---
 
@@ -18,68 +16,73 @@ Aapne pehle se hi Voroa par **`matka` (PostgreSQL)** database bana liya hai (Mum
 3. **`Web Service`** (ya `Service`) select karein.
 4. **Connect GitHub Account** par click karein aur apna GitHub (`munna2006-jaat`) chunein.
 5. List me se apni nayi repository select karein:
-   👉 **`guru777-matka`** (Branch: `main`)
+   👉 **`janta555-matka`** (Branch: `main`)
 
 ---
 
 ### 2️⃣ Step 2: Build & Start Settings Configure Karein
 
-Voroa ke service creation page par yeh settings bharein:
+Voroa ke service creation page par yeh exact settings bharein:
 
 | Setting | Value |
 | :--- | :--- |
-| **Name** | `guru777` (ya jo bhi aap rakhna chahein) |
-| **Region** | `Mumbai (IN)` *(Wahi region chunein jisme aapka `matka` database hai)* |
+| **Name** | `janta555` |
+| **Region** | `Mumbai (IN)` *(ya jo bhi aapka database region hai)* |
 | **Branch** | `main` |
 | **Runtime** | `Node.js` |
 | **Build Command** | `npm install && npm run build` |
 | **Start Command** | `npm start` |
-| **Port** | `5050` |
+| **Port** | `5055` |
 
 ---
 
-### 3️⃣ Step 3: Database ko Service se Connect Karein (Auto `DATABASE_URL`)
+### 3️⃣ Step 3: Database Connect Karein (Optional / Voroa PostgreSQL)
 
-Aapke Voroa Database page par niche ek section hai jo aapke screenshot me dikh raha hai:
-👉 **"Connect to a service"**
+Agar aapke paas Voroa par pehle se PostgreSQL database hai:
+1. Voroa me left menu se apne database par jayein.
+2. Niche scroll karein jaha likha hai: **"Connect to a service"**
+3. **`Choose a service`** dropdown me apni nayi bani hui service (`janta555`) ko select karein.
+4. **`Connect`** button daba dein! Voroa automatically `DATABASE_URL` inject kar dega.
 
-1. Voroa me left menu se apne **`matka`** database par jayein:
-   `app.getvoroa.com/databases/de7af005db3fb38ebfa11ec9`
-2. Niche scroll karein jaha likha hai:
-   **"Connect to a service"**
-3. **`Choose a service`** dropdown par click karein aur apni nayi bani hui service (jaise `guru777`) ko select karein.
-4. Environment variable me `DATABASE_URL` pehle se bhara hoga.
-5. **`Connect`** button daba dein!
-
-*(Jaise hi aap Connect dabayenge, Voroa automatically database ka pura password aur secret connection string aapki Web Service ke environment variables me inject kar dega!)*
+> **Note:** Agar aap Voroa par alag se database connect nahi bhi karte, toh code ke andar built-in persistent SQLite database pehle se configured hai jo bina kisi database setup ke turant live chalega!
 
 ---
 
-### 4️⃣ Step 4: Deploy & Live Check
+### 4️⃣ Step 4: Environment Variables (Variables tab)
 
-Voroa automatically build chalayega:
-1. `npm install`
-2. `npm run build` (user-web, result-web, aur admin-web teeno ka ultra-fast static build generate karega)
-3. `npm start` (backend start hoga, PostgreSQL database se table schema auto-create karega, default admin banayega, aur live monitor start karega)
+Agar custom settings deni ho toh Voroa ke **Variables** tab me yeh add kar sakte hain:
 
-Voroa aapko ek free live domain dega, jaise:
-🔗 **`https://guru777-xxxx.getvoroa.app`**
-
-Aap is single URL se teeno websites access kar sakte hain:
-- 📱 **Main User Betting App:** `https://guru777-xxxx.getvoroa.app/`
-- 📊 **Live Fastest Result Portal:** `https://guru777-xxxx.getvoroa.app/results`
-- 👑 **Master Admin Panel:** `https://guru777-xxxx.getvoroa.app/admin`
-
-*(Admin Default Login: Username: `admin` | Password: `guru777@admin`)*
+```env
+PORT=5055
+NODE_ENV=production
+ADMIN_USER=AdminJanta555
+ADMIN_PASSWORD=Janta555@2026
+META_PIXEL_ID=2066705063996932
+```
 
 ---
 
-### 5️⃣ (Optional) Apna Custom Domain / Subdomain Lagana
+### 5️⃣ Step 5: Deploy & Live Check
 
-Agar aapke paas apna domain hai (jaise `guru777.com`):
+**Deploy** button par click karein. Voroa automatically:
+1. Saari dependencies install karega (`npm install`)
+2. Client Web, Admin Web aur Server compile karega (`npm run build`)
+3. Server start karega (`npm start`)
+
+Voroa aapko free live SSL domain de dega, jaise:
+🔗 **`https://janta555-xxxx.getvoroa.app`**
+
+Aap is single URL se sab kuch access kar sakte hain:
+- 📱 **Main User App:** `https://janta555-xxxx.getvoroa.app/`
+- 👑 **Master Admin Panel:** `https://janta555-xxxx.getvoroa.app/admin`
+
+*(Admin Login: Username: `AdminJanta555` | Password: `Janta555@2026`)*
+
+---
+
+### 6️⃣ Custom Domain Lagana (e.g. `janta555.com`)
+
 1. Voroa me apni Service ke **Settings -> Custom Domains** me jayein.
-2. Yeh 3 subdomains add karein:
-   - `play.guru777.com` (Main App)
-   - `results.guru777.com` (Result Portal)
-   - `admin.guru777.com` (Admin Dashboard)
-3. Humare server code me humne **Automatic Host-Header Subdomain Routing** pehle se laga di hai, isliye custom subdomains bina kisi extra configuration ke direct open honge!
+2. Apna domain daalein (jaise `janta555.com` ya `app.janta555.com`).
+3. Voroa jo CNAME / A-Record dega, usko apne Domain DNS (Cloudflare / GoDaddy / Namecheap) me add kar dein.
+4. Free SSL automatically activate ho jayega!
