@@ -1,4 +1,3 @@
-import Database from 'better-sqlite3';
 import { Pool } from 'pg';
 import bcrypt from 'bcryptjs';
 import { CONFIG } from '../config';
@@ -7,7 +6,7 @@ import genuineHistoricalResults from './genuine_historical_results.json';
 // Determine if we are connected to PostgreSQL (e.g. Voroa, Render, Supabase) or local SQLite
 export const isPostgres = Boolean(CONFIG.DATABASE_URL && CONFIG.DATABASE_URL.trim().length > 0);
 
-let sqliteDb: Database.Database | null = null;
+let sqliteDb: any = null;
 let pgPool: Pool | null = null;
 
 if (isPostgres) {
@@ -17,10 +16,16 @@ if (isPostgres) {
     ssl: { rejectUnauthorized: false }
   });
 } else {
-  console.log('[Database] Using local SQLite database:', CONFIG.DB_PATH);
-  sqliteDb = new Database(CONFIG.DB_PATH);
-  sqliteDb.pragma('journal_mode = WAL');
-  sqliteDb.pragma('foreign_keys = ON');
+  try {
+    const Database = require('better-sqlite3');
+    console.log('[Database] Using local SQLite database:', CONFIG.DB_PATH);
+    sqliteDb = new Database(CONFIG.DB_PATH);
+    sqliteDb.pragma('journal_mode = WAL');
+    sqliteDb.pragma('foreign_keys = ON');
+  } catch (err: any) {
+    console.error('[Database] Warning: SQLite initialization failed:', err?.message || err);
+    console.warn('[Database] If deploying to Voroa or cloud, please provide DATABASE_URL in Environment variables to connect PostgreSQL.');
+  }
 }
 
 // Convert SQLite syntax (?) to PostgreSQL syntax ($1, $2) and handle ON CONFLICT
