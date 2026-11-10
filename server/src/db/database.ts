@@ -1,13 +1,16 @@
+import fs from 'fs';
+import path from 'path';
 import { Pool } from 'pg';
 import bcrypt from 'bcryptjs';
 import { CONFIG } from '../config';
 import genuineHistoricalResults from './genuine_historical_results.json';
 
-// Determine if we are connected to PostgreSQL (e.g. Voroa, Render, Supabase) or local SQLite
+// Determine if we are connected to PostgreSQL (e.g. Voroa, Render, Supabase) or local SQLite (via WebAssembly sql.js)
 export const isPostgres = Boolean(CONFIG.DATABASE_URL && CONFIG.DATABASE_URL.trim().length > 0);
 
-let sqliteDb: any = null;
 let pgPool: Pool | null = null;
+let sqlJsDb: any = null;
+let sqlJsInitPromise: Promise<any> | null = null;
 
 if (isPostgres) {
   console.log('[Database] Connecting to PostgreSQL database (Voroa / Cloud)...');
@@ -16,15 +19,50 @@ if (isPostgres) {
     ssl: { rejectUnauthorized: false }
   });
 } else {
+  console.log('[Database] Using pure WebAssembly SQLite (sql.js) at:', CONFIG.DB_PATH);
+}
+
+// Ensure WebAssembly SQLite database is loaded cleanly without any C++ native bindings
+async function getSqlJsDb(): Promise<any> {
+  if (sqlJsDb) return sqlJsDb;
+  if (!sqlJsInitPromise) {
+    sqlJsInitPromise = (async () => {
+      const initSqlJs = require('sql.js');
+      let locateFile: (() => string) | undefined = undefined;
+      try {
+        const wasmPath = require.resolve('sql.js/dist/sql-wasm.wasm');
+        locateFile = () => wasmPath;
+      } catch {
+        // use default locator
+      }
+      const SQL = await initSqlJs(locateFile ? { locateFile } : undefined);
+      
+      let filebuffer: Buffer | undefined;
+      if (fs.existsSync(CONFIG.DB_PATH)) {
+        try {
+          filebuffer = fs.readFileSync(CONFIG.DB_PATH);
+          console.log('[Database] Loaded existing database from disk:', CONFIG.DB_PATH, `(${filebuffer.length} bytes)`);
+        } catch (err: any) {
+          console.warn('[Database] Could not read existing DB file, creating fresh in-memory database:', err?.message || err);
+          filebuffer = undefined;
+        }
+      }
+      sqlJsDb = new SQL.Database(filebuffer);
+      return sqlJsDb;
+    })();
+  }
+  return sqlJsInitPromise;
+}
+
+// Persist SQLite WebAssembly database to disk safely
+function persistSqlJsToDisk() {
+  if (!sqlJsDb) return;
   try {
-    const Database = require('better-sqlite3');
-    console.log('[Database] Using local SQLite database:', CONFIG.DB_PATH);
-    sqliteDb = new Database(CONFIG.DB_PATH);
-    sqliteDb.pragma('journal_mode = WAL');
-    sqliteDb.pragma('foreign_keys = ON');
+    const data = sqlJsDb.export();
+    const buffer = Buffer.from(data);
+    fs.writeFileSync(CONFIG.DB_PATH, buffer);
   } catch (err: any) {
-    console.error('[Database] Warning: SQLite initialization failed:', err?.message || err);
-    console.warn('[Database] If deploying to Voroa or cloud, please provide DATABASE_URL in Environment variables to connect PostgreSQL.');
+    // Non-critical, ignore disk write failure in read-only sandbox
   }
 }
 
@@ -64,10 +102,17 @@ export const db = {
       const pgSql = transformSqlForPg(sql);
       const res = await pgPool.query(pgSql, params);
       return res.rows as T[];
-    } else if (sqliteDb) {
-      return sqliteDb.prepare(sql).all(...params) as T[];
+    } else {
+      const sdb = await getSqlJsDb();
+      const stmt = sdb.prepare(sql);
+      stmt.bind(params);
+      const rows: T[] = [];
+      while (stmt.step()) {
+        rows.push(stmt.getAsObject() as T);
+      }
+      stmt.free();
+      return rows;
     }
-    return [];
   },
 
   async queryOne<T = any>(sql: string, params: any[] = []): Promise<T | null> {
@@ -75,11 +120,17 @@ export const db = {
       const pgSql = transformSqlForPg(sql);
       const res = await pgPool.query(pgSql, params);
       return (res.rows[0] as T) || null;
-    } else if (sqliteDb) {
-      const res = sqliteDb.prepare(sql).get(...params);
-      return (res as T) || null;
+    } else {
+      const sdb = await getSqlJsDb();
+      const stmt = sdb.prepare(sql);
+      stmt.bind(params);
+      let row: T | null = null;
+      if (stmt.step()) {
+        row = stmt.getAsObject() as T;
+      }
+      stmt.free();
+      return row;
     }
-    return null;
   },
 
   async execute(sql: string, params: any[] = []): Promise<{ lastInsertRowid: number; changes: number }> {
@@ -104,21 +155,24 @@ export const db = {
         }
         throw err;
       }
-    } else if (sqliteDb) {
-      const res = sqliteDb.prepare(sql).run(...params);
-      return {
-        lastInsertRowid: Number(res.lastInsertRowid),
-        changes: res.changes
-      };
+    } else {
+      const sdb = await getSqlJsDb();
+      sdb.run(sql, params);
+      const rowidRes = sdb.exec('SELECT last_insert_rowid() AS id, changes() AS changes');
+      const lastInsertRowid = rowidRes[0]?.values[0]?.[0] ? Number(rowidRes[0].values[0][0]) : 0;
+      const changes = rowidRes[0]?.values[0]?.[1] ? Number(rowidRes[0].values[0][1]) : 0;
+      persistSqlJsToDisk();
+      return { lastInsertRowid, changes };
     }
-    return { lastInsertRowid: 0, changes: 0 };
   },
 
   async exec(sql: string): Promise<void> {
     if (isPostgres && pgPool) {
       await pgPool.query(sql);
-    } else if (sqliteDb) {
-      sqliteDb.exec(sql);
+    } else {
+      const sdb = await getSqlJsDb();
+      sdb.exec(sql);
+      persistSqlJsToDisk();
     }
   },
 
@@ -127,27 +181,15 @@ export const db = {
     return {
       all: (...args: any[]) => {
         const params = args.length === 1 && Array.isArray(args[0]) ? args[0] : args;
-        if (isPostgres) {
-          return db.queryAll(sql, params);
-        } else {
-          return sqliteDb!.prepare(sql).all(...params);
-        }
+        return db.queryAll(sql, params);
       },
       get: (...args: any[]) => {
         const params = args.length === 1 && Array.isArray(args[0]) ? args[0] : args;
-        if (isPostgres) {
-          return db.queryOne(sql, params);
-        } else {
-          return sqliteDb!.prepare(sql).get(...params);
-        }
+        return db.queryOne(sql, params);
       },
       run: (...args: any[]) => {
         const params = args.length === 1 && Array.isArray(args[0]) ? args[0] : args;
-        if (isPostgres) {
-          return db.execute(sql, params);
-        } else {
-          return sqliteDb!.prepare(sql).run(...params);
-        }
+        return db.execute(sql, params);
       }
     };
   }
