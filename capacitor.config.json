@@ -1,0 +1,15 @@
+{
+  "appId": "com.goldmatka.app",
+  "appName": "GoldMatka",
+  "webDir": "apps/user-web/dist",
+  "bundledWebRuntime": false,
+  "server": {
+    "url": "https://goldmatka.co",
+    "cleartext": true,
+    "androidScheme": "https"
+  },
+  "android": {
+    "allowMixedContent": true
+  }
+}
+
